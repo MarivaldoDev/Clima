@@ -35,9 +35,9 @@ janela = sg.Window("CLIMA", layout)
 while True:
     eventos, valores = janela.read()
     if eventos == sg.WINDOW_CLOSED:
-        break
-    
+        break    
     elif eventos == "Buscar":
         cidade = valores['cidade']
         temperaturas()
+
 janela.close()
