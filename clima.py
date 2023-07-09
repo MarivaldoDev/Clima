@@ -13,12 +13,10 @@ def temperaturas():
 
         situacao = requisicao_dicionario['weather'][0]['description']
         temperatura = requisicao_dicionario['main']['temp'] - 273.15
-        sensacao = requisicao_dicionario['main']['feels_like'] - 273.15
-    
+        sensacao = requisicao_dicionario['main']['feels_like'] - 273.15   
     except:
         janela['mensagem'].update("""Houve um erro! 
-Verifique se as informaçoes estão digitadas corretamente.""")
-    
+Verifique se as informaçoes estão digitadas corretamente.""")  
     else:
         janela['mensagem'].update(f"""Situação: {situacao.upper()}
 Temperatura: {temperatura:.1f}°C
@@ -42,3 +40,4 @@ while True:
     elif eventos == "Buscar":
         cidade = valores['cidade']
         temperaturas()
+janela.close()
