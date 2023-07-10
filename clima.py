@@ -1,10 +1,9 @@
 import requests
 import PySimpleGUI as sg
-import os
 
 def temperaturas():
     try:
-        key = os.getenv('api_key')
+        key = '3d750123dbfeefcba851a398e9d81521'
         site = f"https://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={key}&lang=pt_br"
 
         requisicao = requests.get(site)
