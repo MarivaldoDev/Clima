@@ -1,2 +1,2 @@
 # Clima
- Veja o clima totalmente atualizado da sua cidade
+Projeto que faz consumo de uma API para saber a temperatura atualizada da sua cidade.
