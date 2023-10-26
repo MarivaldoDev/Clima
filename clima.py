@@ -1,9 +1,9 @@
 import requests
 import PySimpleGUI as sg
 
-def temperaturas():
+def temperaturas(cidade):
     try:
-        key = '3d750123dbfeefcba851a398e9d81521'
+        key = "3d750123dbfeefcba851a398e9d81521"
         site = f"https://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={key}&lang=pt_br"
 
         requisicao = requests.get(site)
@@ -12,9 +12,13 @@ def temperaturas():
         situacao = requisicao_dicionario['weather'][0]['description']
         temperatura = requisicao_dicionario['main']['temp'] - 273.15
         sensacao = requisicao_dicionario['main']['feels_like'] - 273.15    
-    except:
+    
+    except requests.exceptions.ConnectionError:
         janela['mensagem'].update("""Houve um erro! 
-Verifique se as informaçoes estão digitadas corretamente.""")    
+Verifique sua coneão com a internet.""")
+    except KeyError:
+        janela['mensagem'].update("""Houve um erro! 
+Apenas pesquise sobre o clima da sua cidade.""")    
     else:
         janela['mensagem'].update(f"""Situação: {situacao.upper()}
 Temperatura: {temperatura:.1f}°C
@@ -36,7 +40,6 @@ while True:
     if eventos == sg.WINDOW_CLOSED:
         break   
     elif eventos == "Buscar":
-        cidade = valores['cidade']
-        temperaturas()
+        temperaturas(valores['cidade'])
 
 janela.close()
