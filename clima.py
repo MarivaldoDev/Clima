@@ -3,6 +3,13 @@ from customtkinter import *
 from tkinter import messagebox
 from PIL import Image
 from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+api_key = os.getenv('API_KEY')
 
 
 class App:
@@ -11,13 +18,13 @@ class App:
         self.tela.title('Weather')
         self.tela.resizable(width=False, height=False)
         self.tela.config(background='#4A708B')
-        self.tela.iconbitmap('imgs\sol.ico')
+        self.tela.iconbitmap(r'imgs\sol.ico')
         self.tela.geometry('500x550')
         self.main()
         self.tela.mainloop()
 
     def main(self):
-        self.imagem = Image.open('imgs\main.png')
+        self.imagem = Image.open(r'imgs\main.png')
         self.imagem1 = CTkImage(dark_image=self.imagem, light_image=self.imagem, size=(950, 750))
 
         self.imagem_tela = CTkLabel(master=self.tela, text='' ,image=self.imagem1, fg_color='#4a708b', bg_color='#4a708b', width=100, height=150)
@@ -46,7 +53,7 @@ class App:
     def temperaturas(self):
         cidade = self.city.get()
         
-        key = "3d750123dbfeefcba851a398e9d81521"
+        key = api_key
         site = f"https://api.openweathermap.org/data/2.5/weather?q={cidade.capitalize()}&appid={key}&lang=pt_br"
 
         requisicao = requests.get(site)
@@ -83,7 +90,7 @@ class App:
                 self.resul = CTkLabel(master=self.new_tela, text=self.texto, text_color='#FFFAFA', font=('arial', 21), bg_color='#4A708B')
                 self.resul.place(x=10, y=340)
             elif 'chuva'.upper() in self.texto:
-                self.img_chuva = Image.open('imgs\chuva.png')
+                self.img_chuva = Image.open(r'imgs\chuva.png')
                 self.chuva_tela = CTkImage(dark_image=self.img_chuva, light_image=self.img_chuva, size=(500, 430))
                 self.imagem_chuva = CTkLabel(master=self.new_tela, text='', image=self.chuva_tela, bg_color='#4A708B')
                 self.resul = CTkLabel(master=self.new_tela, text=self.texto, text_color='#DCDCDC', font=('arial', 25), bg_color='#4A708B')
@@ -92,14 +99,14 @@ class App:
             elif 'limpo'.upper() in self.texto:
                 self.momento = datetime.now()
                 if self.momento.hour >= 18:
-                    self.img_lua = Image.open('imgs\lua.png')
+                    self.img_lua = Image.open(r'imgs\lua.png')
                     self.lua_tela = CTkImage(dark_image=self.img_lua, light_image=self.img_lua, size=(500, 330))
                     self.imagem_lua = CTkLabel(master=self.new_tela, text='', image=self.lua_tela, bg_color='#4A708B')
                     self.imagem_lua.place(x=-60, y=-20)
                     self.resul = CTkLabel(master=self.new_tela, text=self.texto, text_color='#87CEFA', font=('arial', 25), bg_color='#4A708B')
                     self.resul.place(x=50, y=340)
                 else:
-                    self.img_sol = Image.open('imgs\sol.png')
+                    self.img_sol = Image.open(r'imgs\sol.png')
                     self.sol_tela = CTkImage(dark_image=self.img_sol, light_image=self.img_sol, size=(500, 330))
                     self.imagem_sol = CTkLabel(master=self.new_tela, text='', image=self.sol_tela, bg_color='#4A708B')
                     self.imagem_sol.place(x=-60, y=-20)
